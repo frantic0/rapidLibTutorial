@@ -4,18 +4,39 @@
 
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+  <style>
+    .highlight {
+      background-color: lightyellow;
+      font-family: 'Courier New', Courier, monospace;
+    }
 
+    h2 {
+      margin-top: 50px;
+    }
+
+    .note {
+      border-left: 6px solid yellow;
+      /* margin: 0px 0px 10px 10px; */
+      padding: 5px 5px 10px 10px;
+      background-color: rgb(255, 255, 200);
+    }
+  </style>
+</head>
 </head>
 
 <body>
 
-  <h1>Getting started with RapidLib for Machine Learning</h1>
+  <h1>Getting started with using RapidLib for Machine Learning</h1>
 
 
-  This page guides you how use RapidLib to build a simple machine learning object and use it, in just a few
-  steps.
+  <p>This page provides a minimal guide on how to use the RapidLib. It shows how to build and use simple machine
+    learning
+    objects, in just a few steps.</p>
 
   <h2>1. Add RapidLib to your HTML page </h2>
+
+  <p>First, to install RapidLib you need to include it in your HTML page using the HTML <span
+      class='highlight'>&lt;script&gt;</span> tag.</p>
 
   <div class='snippet'>
     <pre>
@@ -26,21 +47,40 @@
     </pre>
   </div>
 
-  <h2>2. Create a Machine Learning object with RapidLib </h2>
+  <p>Now you have the RapidLib module available on the Javascript global scope.</p>
 
-  RapidLib is available on the Javascript global scope
+  <h2>2. Load RapidLib to create a Machine Learning object</h2>
+
+  <p>To load RapidLib into a variable, you use <span class='highlight'>RapidLib()</span>. That variable will give you
+    access to the Machine Learning objects that RapidLib provides.</p>
 
   <div class='snippet'>
     <pre>
         <code class="javascript">
           var rapidLib = RapidLib();
-          var myRegression = new rapidLib.Regression();
+
+          var myRegression            = new rapidLib.Regression();
+
+          var myClassification        = new rapidLib.Classification();
+          
+          var mySeriesClassification  = new rapidLib.SeriesClassification();
         </code>
       </pre>
   </div>
 
+  <p>RapidLib provides constructors to three main objects: <span class='highlight'>Regression</span>, <span
+      class='highlight'>Classification</span> and <span class='highlight'>SeriesClassification</span>.</p>
+  <p>You can use each one of these objects to apply a specific Machine Learning task.</p>
 
-  <h2>3. Create a data set from a Javascript object definition</h2>
+  <h2>3. Create a data set </h2>
+
+  <p>To apply a Machine Learning task such as training a <strong>regression</strong> model, you need data and a data
+    structure that holds it&mdash;this is usually called a <strong>data set</strong>.</p>
+
+  <p>The <span class='highlight'>Regression</span> and <span class='highlight'>Classification</span> objects expect a
+    certain structure from a <strong>data set</strong> object, as you can see in the example below.
+  </p>
+
 
   <div class='snippet'>
     <pre>
@@ -71,8 +111,26 @@
       </pre>
   </div>
 
+  <span class='highlight'>myData</span> is a <strong>data set</strong> that contains a list of objects. Each of these
+  objects is an <strong>example</strong> that contains a list of <strong>inputs</strong> matched to a list of desired
+  <strong>outputs</strong>.</p>
+
+  <div class='note'>
+    <p><strong>Note:</strong></p>
+    <p><span class='highlight'>myData</span> is implemented as a Javascript Array containing <strong>examples</strong>
+      that are implemented as Javascript objects.</p>
+    <p>Both <span class='highlight'>input</span> and <span class='highlight'>output</span> are
+      implemented as Javascript Arrays, although the examples in <span class='highlight'>myData</span> match one input
+      to one output.</p>
+    <p>You need to make sure that the number of inputs and outputs <strong>remain constant</strong> for the data sets of
+      a specific Machine Learning object.</p>
+  </div>
 
   <h2>4. Train a Machine Learning object with a data set </h2>
+
+  To train a Machine Learning object, for instance a <strong>regression</strong> object called <span
+    class='highlight'>myRegression</span>, you can use the <span class='highlight'>train()</span> method that accepts a
+  <strong>data set</strong> object.</p>
 
   <div class='snippet'>
     <pre>
@@ -82,35 +140,46 @@
       </pre>
   </div>
 
+  Note that the <span class='highlight'>train()</span> method is synchronous and that, to complete, it takes a
+  proportional amount of time to the size of your training data set.
 
   <h2>5. Run a trained Machine Learning object on new data</h2>
 
+  Once your <strong>regression</strong> object is trained, you can run it on new data and get the results of the
+  learned model.
+
   <div class='snippet'>
     <pre>
-        <code class="javascript">
-          var rapidInput = [64];
-          var freqHz = myRegression.run(rapidInput);
-          console.log(freqHz);
-        </code>
-      </pre>
+       <code class="javascript">
+         var newInput = [64];
+
+         var freqHz = myRegression.run(newInput);
+       </code>
+     </pre>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
+
+  You can either re-train your <strong>regression</strong> object to refine it or terminate the process.
 
   <hr>
 
   <h2>Hello World!</h2>
+
+  <p>The next code snippet shows a simple but complete example of applying the RapidLib for a machine learning task.</p>
+
   <div class='snippet'>
     <pre>
       <code class="javascript">
-       &lt;script src="RapidLib.js"&gt;&lt;&#47;script&gt;
+       &lt;!DOCTYPE html&gt;
+       &lt;html&gt;
+       &lt;head&gt; &lt;/head&gt;
+       &lt;body&gt; &lt;/body&gt;
+       &lt;script src="RapidLib.js"&gt; &lt;&#47;script&gt;
       
        &lt;script&gt; 
          var rapidLib = RapidLib();
+        
          //Create a machine learning object for regression
-         var myRegression = new rapidLib.Regression();
+         var midiToFrequencyRegression = new rapidLib.Regression();
         
          //Create a Javascript object to hold your training data
          var myData = [
@@ -137,19 +206,34 @@
          ];
          
          
-         //Train the machine learning model with the data
-         myRegression.train(myData);
+         //Train a machine learning model with the data
+         midiToFrequencyRegression.train(myData);
          
          //Run the trained model with a new input
-         var rapidInput = [64];
-         var freqHz = myRegression.run(rapidInput);
+         var newInput = [64];
+         var freqHz = midiToFrequencyRegression.run(newInput);
 
-         console.log(freqHz);
+         console.log(freqHz); // 333.713
 
        &lt;&#47;script&gt;
+       &lt;/html&gt;
        </code>
      </pre>
   </div>
+
+  <p>Note that, in this example, the variable named <span class='highlight'>midiToFrequencyRegression</span> keeps the
+    <strong>regression</strong> object.</p>
+
+  <p>The model that trained with <span class='highlight'>myData</span> data set is a function that converts MIDI values
+    to Frequency values.</p>
+
+  <h2>If you want MOAR...</h2>
+  If you'd like to have a deeper exploration and get your hands on more applied examples of RapidLib, check out the
+  ``Guide to Machine Learning for Musicians and Artists``.
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 </html>
