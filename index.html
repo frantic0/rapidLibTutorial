@@ -1,0 +1,155 @@
+<!-- Francisco Bernardo <f.bernardo@sussex.ac.uk> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+
+</head>
+
+<body>
+
+  <h1>Getting started with RapidLib for Machine Learning</h1>
+
+
+  This page guides you how use RapidLib to build a simple machine learning object and use it, in just a few
+  steps.
+
+  <h2>1. Add RapidLib to your HTML page </h2>
+
+  <div class='snippet'>
+    <pre>
+      <code class="javascript">
+          // Just include this script tag inside your HTML page
+          &lt;script src="RapidLib.js"&gt;&lt;&#47;script&gt;
+      </code>
+    </pre>
+  </div>
+
+  <h2>2. Create a Machine Learning object with RapidLib </h2>
+
+  RapidLib is available on the Javascript global scope
+
+  <div class='snippet'>
+    <pre>
+        <code class="javascript">
+          var rapidLib = RapidLib();
+          var myRegression = new rapidLib.Regression();
+        </code>
+      </pre>
+  </div>
+
+
+  <h2>3. Create a data set from a Javascript object definition</h2>
+
+  <div class='snippet'>
+    <pre>
+        <code class="javascript">
+          var myData = [
+            {
+              input: [48],
+              output: [130.81]
+            },
+            {
+              input: [54],
+              output: [185.00]
+            },
+            {
+              input: [60],
+              output: [261.63]
+            },
+            { 
+              input: [66], 
+              output: [369.994] 
+            },
+            { 
+              input: [72], 
+              output: [523.25] 
+            }
+          ];
+        </code>
+      </pre>
+  </div>
+
+
+  <h2>4. Train a Machine Learning object with a data set </h2>
+
+  <div class='snippet'>
+    <pre>
+        <code class="javascript">
+          myRegression.train(myData);
+        </code>
+      </pre>
+  </div>
+
+
+  <h2>5. Run a trained Machine Learning object on new data</h2>
+
+  <div class='snippet'>
+    <pre>
+        <code class="javascript">
+          var rapidInput = [64];
+          var freqHz = myRegression.run(rapidInput);
+          console.log(freqHz);
+        </code>
+      </pre>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+
+  <hr>
+
+  <h2>Hello World!</h2>
+  <div class='snippet'>
+    <pre>
+      <code class="javascript">
+       &lt;script src="RapidLib.js"&gt;&lt;&#47;script&gt;
+      
+       &lt;script&gt; 
+         var rapidLib = RapidLib();
+         //Create a machine learning object for regression
+         var myRegression = new rapidLib.Regression();
+        
+         //Create a Javascript object to hold your training data
+         var myData = [
+           {
+             input: [48],
+             output: [130.81]
+           },
+           {
+             input: [54],
+             output: [185.00]
+           },
+           {
+             input: [60],
+             output: [261.63]
+           },
+           { 
+             input: [66], 
+             output: [369.994] 
+           },
+           { 
+             input: [72], 
+             output: [523.25] 
+           }
+         ];
+         
+         
+         //Train the machine learning model with the data
+         myRegression.train(myData);
+         
+         //Run the trained model with a new input
+         var rapidInput = [64];
+         var freqHz = myRegression.run(rapidInput);
+
+         console.log(freqHz);
+
+       &lt;&#47;script&gt;
+       </code>
+     </pre>
+  </div>
+</body>
+
+</html>
